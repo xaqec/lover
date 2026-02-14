@@ -1,6 +1,6 @@
 // *** BURAYI DÜZENLE ***
 // İlişkinizin başlangıç tarihini buraya yaz (Yıl, Ay-1, Gün)
-const startDate = new Date(2023, 1, 14); // Örnek: 14 Şubat 2023
+const startDate = new Date(2024, 7, 29); // Örnek: 14 Şubat 2023
 
 function updateTimer() {
     const now = new Date();
