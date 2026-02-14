@@ -69,3 +69,4 @@ const observer = new IntersectionObserver((entries) => {
 document.querySelectorAll('.item-wrapper').forEach(item => {
     observer.observe(item);
 });
+
