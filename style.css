@@ -1,0 +1,277 @@
+/* GENEL AYARLAR & REFAH RENKLER */
+:root {
+    --bg-color: #fdf2f8;
+    /* Çok açık pastel pembe */
+    --text-color: #831843;
+    /* Koyu, yumuşak vişne çürüğü */
+    --card-bg: rgba(255, 255, 255, 0.9);
+    --stem-color: #66bb6a;
+    --flower-color-1: #f48fb1;
+    --flower-color-2: #ec407a;
+    --flower-center: #fce4ec;
+}
+
+body {
+    background-color: var(--bg-color);
+    font-family: 'Courier New', Courier, monospace;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+    color: var(--text-color);
+    position: relative;
+}
+
+/* ZAMAN SAYACI KISMI */
+.container {
+    text-align: center;
+    z-index: 10;
+    background: var(--card-bg);
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(136, 14, 79, 0.1);
+    margin-bottom: 3rem;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    transition: transform 0.3s ease;
+}
+
+.container:hover {
+    transform: translateY(-5px);
+}
+
+h1 {
+    font-size: 1.8rem;
+    margin-bottom: 1.2rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+#timer {
+    font-size: 1.4rem;
+    font-weight: bold;
+    line-height: 1.8;
+}
+
+small {
+    display: block;
+    font-size: 0.9rem;
+    margin-top: 15px;
+    opacity: 0.8;
+    font-style: italic;
+}
+
+/* Kayan Kalpler Arka Planı */
+.heart-bg {
+    position: absolute;
+    bottom: -50px;
+    background-color: rgba(233, 30, 99, 0.3);
+    width: 20px;
+    height: 20px;
+    transform: rotate(45deg);
+    animation: floatUp linear infinite;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.heart-bg::before,
+.heart-bg::after {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: inherit;
+    border-radius: 50%;
+}
+
+.heart-bg::before {
+    top: -10px;
+    left: 0;
+}
+
+.heart-bg::after {
+    left: -10px;
+    top: 0;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) rotate(45deg) scale(0.8);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 0.6;
+    }
+
+    100% {
+        transform: translateY(-120vh) rotate(45deg) scale(1.2);
+        opacity: 0;
+    }
+}
+
+/* GELİŞMİŞ ÇİÇEK (CSS ART) */
+.flower-container {
+    position: relative;
+    width: 150px;
+    height: 200px;
+    z-index: 5;
+    /* Hafif bir filtre ile yumuşat */
+    filter: drop-shadow(0 10px 10px rgba(0, 0, 0, 0.1));
+}
+
+.flower-wrapper {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform-origin: bottom center;
+    animation: sway 4s infinite ease-in-out alternate;
+}
+
+.stem {
+    width: 8px;
+    height: 160px;
+    background: linear-gradient(to right, #4caf50, #81c784);
+    border-radius: 4px;
+    position: absolute;
+    bottom: 0;
+    left: -4px;
+}
+
+.leaf {
+    position: absolute;
+    width: 40px;
+    height: 20px;
+    background: linear-gradient(to right, #66bb6a, #a5d6a7);
+    border-radius: 0 40px 0 40px;
+    bottom: 60px;
+    left: 2px;
+    transform-origin: left center;
+    transform: rotate(-35deg);
+    box-shadow: inset 2px -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.leaf.right {
+    left: auto;
+    right: 2px;
+    bottom: 80px;
+    border-radius: 40px 0 40px 0;
+    transform-origin: right center;
+    transform: rotate(35deg);
+}
+
+/* Çiçek Baş Kısmı - Lale Formu ama daha detaylı */
+.flower-head {
+    position: absolute;
+    bottom: 150px;
+    left: 50%;
+    width: 0;
+    height: 0;
+    transform: translateX(-50%);
+}
+
+.petal {
+    position: absolute;
+    bottom: 0;
+    width: 40px;
+    height: 60px;
+    background: linear-gradient(to top, var(--flower-color-2), var(--flower-color-1));
+    border-radius: 50% 50% 10% 10%;
+    transform-origin: bottom center;
+    box-shadow: inset -2px -2px 5px rgba(0, 0, 0, 0.1);
+    opacity: 0.95;
+    transition: transform 0.5s ease;
+}
+
+/* Yaprak Açılma Animasyonu */
+.petal.center {
+    z-index: 3;
+    left: -20px;
+    height: 70px;
+    background: linear-gradient(to top, #d81b60, #f06292);
+}
+
+.petal.left {
+    z-index: 2;
+    left: -20px;
+    transform: rotate(-15deg);
+    border-radius: 50% 0 30% 10%;
+    height: 65px;
+    background: linear-gradient(to top, #c2185b, #e91e63);
+    animation: bloomLeft 3s infinite alternate ease-in-out;
+}
+
+.petal.right {
+    z-index: 2;
+    left: -20px;
+    transform: rotate(15deg);
+    border-radius: 0 50% 10% 30%;
+    height: 65px;
+    background: linear-gradient(to top, #c2185b, #e91e63);
+    animation: bloomRight 3s infinite alternate ease-in-out;
+}
+
+.petal.back-left {
+    z-index: 1;
+    left: -20px;
+    transform: rotate(-30deg) scale(0.9);
+    background: #ad1457;
+    height: 60px;
+}
+
+.petal.back-right {
+    z-index: 1;
+    left: -20px;
+    transform: rotate(30deg) scale(0.9);
+    background: #ad1457;
+    height: 60px;
+}
+
+@keyframes sway {
+    0% {
+        transform: rotate(-3deg);
+    }
+
+    100% {
+        transform: rotate(3deg);
+    }
+}
+
+@keyframes bloomLeft {
+    0% {
+        transform: rotate(-15deg);
+    }
+
+    100% {
+        transform: rotate(-25deg);
+    }
+}
+
+@keyframes bloomRight {
+    0% {
+        transform: rotate(15deg);
+    }
+
+    100% {
+        transform: rotate(25deg);
+    }
+}
+
+/* Mobil Uyumluluk */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 1.2rem;
+    }
+
+    #timer {
+        font-size: 1rem;
+    }
+
+    .container {
+        padding: 1.5rem;
+        width: 80%;
+    }
+}
