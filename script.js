@@ -1,6 +1,6 @@
 // *** BURAYI DÜZENLE ***
 // İlişkinizin başlangıç tarihini buraya yaz (Yıl, Ay-1, Gün)
-const startDate = new Date(2024, 7, 29); // Örnek: 14 Şubat 2023
+const startDate = new Date(2024, 6, 29); // 29 Temmuz 2024 (Ay 0-indexed: Temmuz = 6)
 
 function updateTimer() {
     const now = new Date();
@@ -53,15 +53,13 @@ setInterval(createHeart, 300); // Üretim sıklığı
 
 // SCROLL ANIMASYONU (VINE TIMELINE)
 const observerOptions = {
-    threshold: 0.2 // %20'si görünür olunca tetikle
+    threshold: 0.2
 };
 
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.classList.add('visible');
-            // Bir kere göründükten sonra observer'dan çıkar (tekrar kaybolmasın)
-            // İsteğe bağlı: observer.unobserve(entry.target);
         }
     });
 }, observerOptions);
@@ -69,4 +67,18 @@ const observer = new IntersectionObserver((entries) => {
 document.querySelectorAll('.item-wrapper').forEach(item => {
     observer.observe(item);
 });
+
+// FINAL PLATE ANIMASYONU
+const plateObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
+    });
+}, { threshold: 0.3 });
+
+const finalPlate = document.querySelector('.final-plate');
+if (finalPlate) {
+    plateObserver.observe(finalPlate);
+}
 
