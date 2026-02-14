@@ -1,80 +1,72 @@
-/* GENEL AYARLAR & REFAH RENKLER */
+/* GOOGLE FONTS */
+@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Quicksand:wght@300;400;700&display=swap');
+
+/* GENEL AYARLAR & DARK MODE PALETİ */
 :root {
-    --bg-color: #fdf2f8;
-    /* Çok açık pastel pembe */
-    --text-color: #831843;
-    /* Koyu, yumuşak vişne çürüğü */
-    --card-bg: rgba(255, 255, 255, 0.9);
-    --stem-color: #66bb6a;
-    --flower-color-1: #f48fb1;
-    --flower-color-2: #ec407a;
-    --flower-center: #fce4ec;
+    --bg-color: #1a0b14;
+    /* Çok koyu, morumsu siyah (Dark Mode) */
+    --text-color: #fce4ec;
+    /* Açık pastel pembe yazı */
+    --accent-color: #d81b60;
+    /* Canlı pembe vurgular */
+    --card-bg: rgba(40, 20, 30, 0.7);
+    /* Yarı saydam koyu kart */
+    --vine-color: #558b2f;
+    /* Koyu yeşil sarmaşık */
+    --vine-light: #7cb342;
+    --flower-color-1: #c2185b;
+    --flower-color-2: #880e4f;
 }
 
 body {
     background-color: var(--bg-color);
-    font-family: 'Courier New', Courier, monospace;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    margin: 0;
-    overflow: hidden;
+    font-family: 'Quicksand', sans-serif;
+    /* Modern, yuvarlak font */
     color: var(--text-color);
+    margin: 0;
+    overflow-x: hidden;
+    /* Yatay taşmayı engelle */
     position: relative;
+    min-height: 100vh;
 }
 
-/* ZAMAN SAYACI KISMI */
-.container {
-    text-align: center;
-    z-index: 10;
-    background: var(--card-bg);
-    padding: 2.5rem;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(136, 14, 79, 0.1);
-    margin-bottom: 3rem;
-    backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    transition: transform 0.3s ease;
+/* ARKA PLAN AMBİYANS (SLOW MOTION) */
+body::before {
+    content: "";
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(88, 28, 135, 0.2), transparent 70%);
+    animation: ambientShift 30s infinite alternate ease-in-out;
+    z-index: -2;
+    pointer-events: none;
 }
 
-.container:hover {
-    transform: translateY(-5px);
+@keyframes ambientShift {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    100% {
+        transform: translate(10%, 10%) scale(1.1);
+    }
 }
 
-h1 {
-    font-size: 1.8rem;
-    margin-bottom: 1.2rem;
-    font-weight: bold;
-    letter-spacing: 1px;
-}
-
-#timer {
-    font-size: 1.4rem;
-    font-weight: bold;
-    line-height: 1.8;
-}
-
-small {
-    display: block;
-    font-size: 0.9rem;
-    margin-top: 15px;
-    opacity: 0.8;
-    font-style: italic;
-}
-
-/* Kayan Kalpler Arka Planı */
+/* KAYAN KALPLER (GÜNCELLENMİŞ) */
 .heart-bg {
-    position: absolute;
+    position: fixed;
+    /* Fixed kalsın, scroll ile gitmesin */
     bottom: -50px;
-    background-color: rgba(233, 30, 99, 0.3);
+    background-color: rgba(233, 30, 99, 0.4);
     width: 20px;
     height: 20px;
     transform: rotate(45deg);
     animation: floatUp linear infinite;
-    z-index: 1;
+    z-index: -1;
     pointer-events: none;
+    box-shadow: 0 0 10px rgba(233, 30, 99, 0.2);
 }
 
 .heart-bg::before,
@@ -99,11 +91,11 @@ small {
 
 @keyframes floatUp {
     0% {
-        transform: translateY(0) rotate(45deg) scale(0.8);
+        transform: translateY(0) rotate(45deg) scale(0.5);
         opacity: 0;
     }
 
-    10% {
+    20% {
         opacity: 0.6;
     }
 
@@ -113,165 +105,280 @@ small {
     }
 }
 
-/* GELİŞMİŞ ÇİÇEK (CSS ART) */
-.flower-container {
+/* HEADER & TIMER (SABİT ÜST KISIM) */
+.header-container {
+    text-align: center;
+    padding: 3rem 1rem;
     position: relative;
-    width: 150px;
-    height: 200px;
+    z-index: 10;
+}
+
+h1 {
+    font-family: 'Patrick Hand', cursive;
+    /* Sevimli el yazısı */
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+    color: #ff80ab;
+    text-shadow: 0 0 10px rgba(255, 128, 171, 0.5);
+}
+
+.timer-box {
+    background: var(--card-bg);
+    padding: 1.5rem 3rem;
+    border-radius: 50px;
+    display: inline-block;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+#timer {
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.6;
+}
+
+#timer span {
+    color: #ff4081;
+}
+
+.subtitle {
+    font-family: 'Patrick Hand', cursive;
+    font-size: 1.2rem;
+    margin-top: 10px;
+    opacity: 0.8;
+}
+
+/* ÇİÇEK ANİMASYONU (GÜNCELLENMİŞ REALİSTİK) */
+.main-flower-section {
+    position: relative;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    margin-bottom: -50px;
+    /* Sarmaşıkla birleşmesi için */
     z-index: 5;
-    /* Hafif bir filtre ile yumuşat */
-    filter: drop-shadow(0 10px 10px rgba(0, 0, 0, 0.1));
+    pointer-events: none;
+    /* Tıklamayı engelle */
 }
 
 .flower-wrapper {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
+    position: relative;
+    animation: sway 5s infinite ease-in-out alternate;
     transform-origin: bottom center;
-    animation: sway 4s infinite ease-in-out alternate;
 }
 
 .stem {
-    width: 8px;
-    height: 160px;
-    background: linear-gradient(to right, #4caf50, #81c784);
-    border-radius: 4px;
-    position: absolute;
-    bottom: 0;
-    left: -4px;
+    width: 6px;
+    height: 200px;
+    background: linear-gradient(to right, #33691e, #558b2f);
+    border-radius: 3px;
+    margin: 0 auto;
 }
 
-.leaf {
+.thorns {
     position: absolute;
-    width: 40px;
-    height: 20px;
-    background: linear-gradient(to right, #66bb6a, #a5d6a7);
-    border-radius: 0 40px 0 40px;
-    bottom: 60px;
-    left: 2px;
-    transform-origin: left center;
-    transform: rotate(-35deg);
-    box-shadow: inset 2px -2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.leaf.right {
-    left: auto;
-    right: 2px;
-    bottom: 80px;
-    border-radius: 40px 0 40px 0;
-    transform-origin: right center;
-    transform: rotate(35deg);
-}
-
-/* Çiçek Baş Kısmı - Lale Formu ama daha detaylı */
-.flower-head {
-    position: absolute;
-    bottom: 150px;
-    left: 50%;
     width: 0;
     height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 10px solid #33691e;
+}
+
+.t-1 {
+    bottom: 60px;
+    left: -8px;
+    transform: rotate(-45deg);
+}
+
+.t-2 {
+    bottom: 120px;
+    right: -8px;
+    transform: rotate(45deg);
+}
+
+/* Gelişmiş Gül Kafası */
+.rose-head {
+    position: absolute;
+    bottom: 190px;
+    left: 50%;
     transform: translateX(-50%);
+    width: 60px;
+    height: 50px;
 }
 
 .petal {
     position: absolute;
+    background: linear-gradient(to top, var(--flower-color-2), var(--flower-color-1));
+    border-radius: 50%;
+    box-shadow: inset -2px -2px 5px rgba(0, 0, 0, 0.3);
+    opacity: 0.95;
+}
+
+.p-1 {
+    width: 50px;
+    height: 50px;
     bottom: 0;
+    left: 5px;
+    border-radius: 50% 0 50% 50%;
+    transform: rotate(-10deg);
+    z-index: 2;
+}
+
+.p-2 {
+    width: 50px;
+    height: 50px;
+    bottom: 0;
+    right: 5px;
+    border-radius: 0 50% 50% 50%;
+    transform: rotate(10deg);
+    z-index: 2;
+}
+
+.p-3 {
     width: 40px;
     height: 60px;
-    background: linear-gradient(to top, var(--flower-color-2), var(--flower-color-1));
-    border-radius: 50% 50% 10% 10%;
-    transform-origin: bottom center;
-    box-shadow: inset -2px -2px 5px rgba(0, 0, 0, 0.1);
-    opacity: 0.95;
-    transition: transform 0.5s ease;
+    bottom: 5px;
+    left: 10px;
+    border-radius: 50%;
+    background: #ad1457;
+    z-index: 1;
 }
 
-/* Yaprak Açılma Animasyonu */
-.petal.center {
+.p-center {
+    width: 30px;
+    height: 50px;
+    bottom: 5px;
+    left: 15px;
+    background: linear-gradient(to bottom, #f06292, #d81b60);
+    border-radius: 20px;
     z-index: 3;
-    left: -20px;
-    height: 70px;
-    background: linear-gradient(to top, #d81b60, #f06292);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-.petal.left {
-    z-index: 2;
-    left: -20px;
-    transform: rotate(-15deg);
-    border-radius: 50% 0 30% 10%;
-    height: 65px;
-    background: linear-gradient(to top, #c2185b, #e91e63);
-    animation: bloomLeft 3s infinite alternate ease-in-out;
+/* ZAMAN ÇİZELGESİ (SARMAŞIK) */
+.timeline-container {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 50px 0 150px 0;
+    overflow: hidden;
 }
 
-.petal.right {
-    z-index: 2;
-    left: -20px;
-    transform: rotate(15deg);
-    border-radius: 0 50% 10% 30%;
-    height: 65px;
-    background: linear-gradient(to top, #c2185b, #e91e63);
-    animation: bloomRight 3s infinite alternate ease-in-out;
-}
-
-.petal.back-left {
+/* Düz inen sarmaşık gövdesi */
+.timeline-vine-bg {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 8px;
+    margin-left: -4px;
+    background: linear-gradient(to bottom, #558b2f, #33691e);
+    border-radius: 4px;
     z-index: 1;
-    left: -20px;
-    transform: rotate(-30deg) scale(0.9);
-    background: #ad1457;
-    height: 60px;
 }
 
-.petal.back-right {
+.item-wrapper {
+    position: relative;
+    width: 50%;
+    padding: 20px 40px;
+    box-sizing: border-box;
+    opacity: 0;
+    /* JS ile görünür olacak */
+    transform: translateY(30px);
+    transition: all 0.8s ease;
+    z-index: 2;
+}
+
+.item-wrapper.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.item-wrapper:nth-child(odd) {
+    left: 0;
+    text-align: right;
+}
+
+.item-wrapper:nth-child(even) {
+    left: 50%;
+    text-align: left;
+}
+
+/* Dallar */
+.branch {
+    position: absolute;
+    top: 30px;
+    width: 40px;
+    height: 4px;
+    background: #558b2f;
     z-index: 1;
-    left: -20px;
-    transform: rotate(30deg) scale(0.9);
-    background: #ad1457;
-    height: 60px;
 }
 
-@keyframes sway {
-    0% {
-        transform: rotate(-3deg);
-    }
-
-    100% {
-        transform: rotate(3deg);
-    }
+.item-wrapper:nth-child(odd) .branch {
+    right: -4px;
+    /* Gövdeye birleş */
+    transform-origin: right center;
+    transform: rotate(-20deg);
+    border-radius: 5px 0 0 5px;
 }
 
-@keyframes bloomLeft {
-    0% {
-        transform: rotate(-15deg);
-    }
-
-    100% {
-        transform: rotate(-25deg);
-    }
+.item-wrapper:nth-child(even) .branch {
+    left: -4px;
+    /* Gövdeye birleş */
+    transform-origin: left center;
+    transform: rotate(20deg);
+    border-radius: 0 5px 5px 0;
 }
 
-@keyframes bloomRight {
-    0% {
-        transform: rotate(15deg);
-    }
-
-    100% {
-        transform: rotate(25deg);
-    }
+/* İçerik Kutusu */
+.content-box {
+    background: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: 15px;
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s;
 }
 
-/* Mobil Uyumluluk */
-@media (max-width: 600px) {
-    h1 {
-        font-size: 1.2rem;
-    }
+.content-box:hover {
+    transform: scale(1.02);
+    background: rgba(60, 30, 45, 0.8);
+}
 
-    #timer {
-        font-size: 1rem;
-    }
+.content-box h3 {
+    font-family: 'Patrick Hand', cursive;
+    margin: 0 0 5px 0;
+    font-size: 1.4rem;
+    color: #f48fb1;
+}
 
-    .container {
-        padding: 1.5rem;
-        width: 80%;
-    }
+.content-box p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin: 0;
+    color: #e1bee7;
+}
+
+/* Küçük Yapraklar - Süs */
+.leaf-deco {
+    position: absolute;
+    width: 15px;
+    height: 8px;
+    background: #7cb342;
+    border-radius: 0 10px 0 10px;
+}
+
+.item-wrapper:nth-child(odd) .leaf-deco {
+    right: 10px;
+    top: 25px;
+    transform: rotate(-30deg);
+}
+
+.item-wrapper:nth-child(even) .leaf-deco {
+    left: 10px;
+    top: 25px;
+    transform: rotate(30deg);
 }
